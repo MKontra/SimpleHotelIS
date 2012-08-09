@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="hotelModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="hotelModelStoreContainer">
+    <EntitySet Name="Zakazniks" EntityType="hotelModel.Store.Zakazniks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rezervacias" EntityType="hotelModel.Store.Rezervacias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pobyts" EntityType="hotelModel.Store.Pobyts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Izbas" EntityType="hotelModel.Store.Izbas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Platbas" EntityType="hotelModel.Store.Platbas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sluzbies" EntityType="hotelModel.Store.Sluzbies" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ZakaznikRezervacia" Association="hotelModel.Store.ZakaznikRezervacia">
+      <End Role="Zakaznik" EntitySet="Zakazniks" />
+      <End Role="Rezervacia" EntitySet="Rezervacias" />
+    </AssociationSet>
+    <AssociationSet Name="ZakaznikPlatba" Association="hotelModel.Store.ZakaznikPlatba">
+      <End Role="Zakaznik" EntitySet="Zakazniks" />
+      <End Role="Platba" EntitySet="Platbas" />
+    </AssociationSet>
+    <AssociationSet Name="RezervaciaIzba" Association="hotelModel.Store.RezervaciaIzba">
+      <End Role="Rezervacia" EntitySet="Rezervacias" />
+      <End Role="Izba" EntitySet="Izbas" />
+    </AssociationSet>
+    <AssociationSet Name="PobytIzba" Association="hotelModel.Store.PobytIzba">
+      <End Role="Pobyt" EntitySet="Pobyts" />
+      <End Role="Izba" EntitySet="Izbas" />
+    </AssociationSet>
+    <AssociationSet Name="PobytSluzby" Association="hotelModel.Store.PobytSluzby">
+      <End Role="Pobyt" EntitySet="Pobyts" />
+      <End Role="Sluzby" EntitySet="Sluzbies" />
+    </AssociationSet>
+    <AssociationSet Name="ZakaznikPobyt" Association="hotelModel.Store.ZakaznikPobyt">
+      <End Role="Zakaznik" EntitySet="Zakazniks" />
+      <End Role="Pobyt" EntitySet="Pobyts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Zakazniks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="meno" Type="longtext" Nullable="false" />
+    <Property Name="priezvisko" Type="longtext" Nullable="false" />
+    <Property Name="kontakt" Type="longtext" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rezervacias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Zakaznik_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pobyts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Zakaznik_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Izbas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rezervacia_Id" Type="int" Nullable="false" />
+    <Property Name="Pobyt_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Platbas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Zakaznik_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sluzbies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pobyt_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ZakaznikRezervacia">
+    <End Role="Zakaznik" Type="hotelModel.Store.Zakazniks" Multiplicity="1" />
+    <End Role="Rezervacia" Type="hotelModel.Store.Rezervacias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zakaznik">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rezervacia">
+        <PropertyRef Name="Zakaznik_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ZakaznikPlatba">
+    <End Role="Zakaznik" Type="hotelModel.Store.Zakazniks" Multiplicity="1" />
+    <End Role="Platba" Type="hotelModel.Store.Platbas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zakaznik">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Platba">
+        <PropertyRef Name="Zakaznik_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RezervaciaIzba">
+    <End Role="Rezervacia" Type="hotelModel.Store.Rezervacias" Multiplicity="1" />
+    <End Role="Izba" Type="hotelModel.Store.Izbas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rezervacia">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Izba">
+        <PropertyRef Name="Rezervacia_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PobytIzba">
+    <End Role="Pobyt" Type="hotelModel.Store.Pobyts" Multiplicity="1" />
+    <End Role="Izba" Type="hotelModel.Store.Izbas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pobyt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Izba">
+        <PropertyRef Name="Pobyt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PobytSluzby">
+    <End Role="Pobyt" Type="hotelModel.Store.Pobyts" Multiplicity="1" />
+    <End Role="Sluzby" Type="hotelModel.Store.Sluzbies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pobyt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sluzby">
+        <PropertyRef Name="Pobyt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ZakaznikPobyt">
+    <End Role="Zakaznik" Type="hotelModel.Store.Zakazniks" Multiplicity="1" />
+    <End Role="Pobyt" Type="hotelModel.Store.Pobyts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zakaznik">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pobyt">
+        <PropertyRef Name="Zakaznik_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hotelModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="hotelEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="Zakazniks" EntityType="hotelModel.Zakaznik" />
+          <EntitySet Name="Rezervacias" EntityType="hotelModel.Rezervacia" />
+          <EntitySet Name="Pobyts" EntityType="hotelModel.Pobyt" />
+          <EntitySet Name="Izbas" EntityType="hotelModel.Izba" />
+          <EntitySet Name="Platbas" EntityType="hotelModel.Platba" />
+          <EntitySet Name="Sluzbies" EntityType="hotelModel.Sluzby" />
+          <AssociationSet Name="ZakaznikRezervacia" Association="hotelModel.ZakaznikRezervacia">
+            <End Role="Zakaznik" EntitySet="Zakazniks" />
+            <End Role="Rezervacia" EntitySet="Rezervacias" />
+          </AssociationSet>
+          <AssociationSet Name="ZakaznikPlatba" Association="hotelModel.ZakaznikPlatba">
+            <End Role="Zakaznik" EntitySet="Zakazniks" />
+            <End Role="Platba" EntitySet="Platbas" />
+          </AssociationSet>
+          <AssociationSet Name="RezervaciaIzba" Association="hotelModel.RezervaciaIzba">
+            <End Role="Rezervacia" EntitySet="Rezervacias" />
+            <End Role="Izba" EntitySet="Izbas" />
+          </AssociationSet>
+          <AssociationSet Name="PobytIzba" Association="hotelModel.PobytIzba">
+            <End Role="Pobyt" EntitySet="Pobyts" />
+            <End Role="Izba" EntitySet="Izbas" />
+          </AssociationSet>
+          <AssociationSet Name="PobytSluzby" Association="hotelModel.PobytSluzby">
+            <End Role="Pobyt" EntitySet="Pobyts" />
+            <End Role="Sluzby" EntitySet="Sluzbies" />
+          </AssociationSet>
+          <AssociationSet Name="ZakaznikPobyt" Association="hotelModel.ZakaznikPobyt">
+            <End Role="Zakaznik" EntitySet="Zakazniks" />
+            <End Role="Pobyt" EntitySet="Pobyts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Zakaznik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Rezervacias" Relationship="hotelModel.ZakaznikRezervacia" FromRole="Zakaznik" ToRole="Rezervacia" />
+          <NavigationProperty Name="Platbas" Relationship="hotelModel.ZakaznikPlatba" FromRole="Zakaznik" ToRole="Platba" />
+          <NavigationProperty Name="Pobyts" Relationship="hotelModel.ZakaznikPobyt" FromRole="Zakaznik" ToRole="Pobyt" />
+          <Property Type="String" Name="meno" Nullable="false" />
+          <Property Type="String" Name="priezvisko" Nullable="false" />
+          <Property Type="String" Name="kontakt" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rezervacia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Zakaznik" Relationship="hotelModel.ZakaznikRezervacia" FromRole="Rezervacia" ToRole="Zakaznik" />
+          <NavigationProperty Name="Izbas" Relationship="hotelModel.RezervaciaIzba" FromRole="Rezervacia" ToRole="Izba" />
+        </EntityType>
+        <EntityType Name="Pobyt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Izbas" Relationship="hotelModel.PobytIzba" FromRole="Pobyt" ToRole="Izba" />
+          <NavigationProperty Name="Sluzbies" Relationship="hotelModel.PobytSluzby" FromRole="Pobyt" ToRole="Sluzby" />
+          <NavigationProperty Name="Zakaznik" Relationship="hotelModel.ZakaznikPobyt" FromRole="Pobyt" ToRole="Zakaznik" />
+        </EntityType>
+        <EntityType Name="Izba">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Rezervacia" Relationship="hotelModel.RezervaciaIzba" FromRole="Izba" ToRole="Rezervacia" />
+          <NavigationProperty Name="Pobyt" Relationship="hotelModel.PobytIzba" FromRole="Izba" ToRole="Pobyt" />
+        </EntityType>
+        <EntityType Name="Platba">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Zakaznik" Relationship="hotelModel.ZakaznikPlatba" FromRole="Platba" ToRole="Zakaznik" />
+        </EntityType>
+        <EntityType Name="Sluzby">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Pobyt" Relationship="hotelModel.PobytSluzby" FromRole="Sluzby" ToRole="Pobyt" />
+        </EntityType>
+        <Association Name="ZakaznikRezervacia">
+          <End Type="hotelModel.Zakaznik" Role="Zakaznik" Multiplicity="1" />
+          <End Type="hotelModel.Rezervacia" Role="Rezervacia" Multiplicity="*" />
+        </Association>
+        <Association Name="ZakaznikPlatba">
+          <End Type="hotelModel.Zakaznik" Role="Zakaznik" Multiplicity="1" />
+          <End Type="hotelModel.Platba" Role="Platba" Multiplicity="*" />
+        </Association>
+        <Association Name="RezervaciaIzba">
+          <End Type="hotelModel.Rezervacia" Role="Rezervacia" Multiplicity="1" />
+          <End Type="hotelModel.Izba" Role="Izba" Multiplicity="*" />
+        </Association>
+        <Association Name="PobytIzba">
+          <End Type="hotelModel.Pobyt" Role="Pobyt" Multiplicity="1" />
+          <End Type="hotelModel.Izba" Role="Izba" Multiplicity="*" />
+        </Association>
+        <Association Name="PobytSluzby">
+          <End Type="hotelModel.Pobyt" Role="Pobyt" Multiplicity="1" />
+          <End Type="hotelModel.Sluzby" Role="Sluzby" Multiplicity="*" />
+        </Association>
+        <Association Name="ZakaznikPobyt">
+          <End Type="hotelModel.Zakaznik" Role="Zakaznik" Multiplicity="1" />
+          <End Type="hotelModel.Pobyt" Role="Pobyt" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hotelModelStoreContainer" CdmEntityContainer="hotelEntities">
+    <EntitySetMapping Name="Zakazniks">
+      <EntityTypeMapping TypeName="IsTypeOf(hotelModel.Zakaznik)">
+        <MappingFragment StoreEntitySet="Zakazniks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="meno" ColumnName="meno" />
+          <ScalarProperty Name="priezvisko" ColumnName="priezvisko" />
+          <ScalarProperty Name="kontakt" ColumnName="kontakt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rezervacias">
+      <EntityTypeMapping TypeName="IsTypeOf(hotelModel.Rezervacia)">
+        <MappingFragment StoreEntitySet="Rezervacias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pobyts">
+      <EntityTypeMapping TypeName="IsTypeOf(hotelModel.Pobyt)">
+        <MappingFragment StoreEntitySet="Pobyts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Izbas">
+      <EntityTypeMapping TypeName="IsTypeOf(hotelModel.Izba)">
+        <MappingFragment StoreEntitySet="Izbas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Platbas">
+      <EntityTypeMapping TypeName="IsTypeOf(hotelModel.Platba)">
+        <MappingFragment StoreEntitySet="Platbas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sluzbies">
+      <EntityTypeMapping TypeName="IsTypeOf(hotelModel.Sluzby)">
+        <MappingFragment StoreEntitySet="Sluzbies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ZakaznikRezervacia" TypeName="hotelModel.ZakaznikRezervacia" StoreEntitySet="Rezervacias">
+      <EndProperty Name="Zakaznik">
+        <ScalarProperty Name="Id" ColumnName="Zakaznik_Id" />
+      </EndProperty>
+      <EndProperty Name="Rezervacia">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZakaznikPlatba" TypeName="hotelModel.ZakaznikPlatba" StoreEntitySet="Platbas">
+      <EndProperty Name="Zakaznik">
+        <ScalarProperty Name="Id" ColumnName="Zakaznik_Id" />
+      </EndProperty>
+      <EndProperty Name="Platba">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RezervaciaIzba" TypeName="hotelModel.RezervaciaIzba" StoreEntitySet="Izbas">
+      <EndProperty Name="Rezervacia">
+        <ScalarProperty Name="Id" ColumnName="Rezervacia_Id" />
+      </EndProperty>
+      <EndProperty Name="Izba">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PobytIzba" TypeName="hotelModel.PobytIzba" StoreEntitySet="Izbas">
+      <EndProperty Name="Pobyt">
+        <ScalarProperty Name="Id" ColumnName="Pobyt_Id" />
+      </EndProperty>
+      <EndProperty Name="Izba">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PobytSluzby" TypeName="hotelModel.PobytSluzby" StoreEntitySet="Sluzbies">
+      <EndProperty Name="Pobyt">
+        <ScalarProperty Name="Id" ColumnName="Pobyt_Id" />
+      </EndProperty>
+      <EndProperty Name="Sluzby">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZakaznikPobyt" TypeName="hotelModel.ZakaznikPobyt" StoreEntitySet="Pobyts">
+      <EndProperty Name="Zakaznik">
+        <ScalarProperty Name="Id" ColumnName="Zakaznik_Id" />
+      </EndProperty>
+      <EndProperty Name="Pobyt">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToMySQL.tt" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DatabaseGenerationWorkflow" Value="$(VSEFTools)\DBGen\TablePerTypeStrategy.xaml" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="hotelModel" ZoomLevel="79">
+        <EntityTypeShape EntityType="hotelModel.Zakaznik" Width="1.5" PointX="1.875" PointY="0.875" Height="2.364889322916667" />
+        <EntityTypeShape EntityType="hotelModel.Rezervacia" Width="1.5" PointX="4.25" PointY="1" Height="1.211080729166667" />
+        <EntityTypeShape EntityType="hotelModel.Pobyt" Width="1.5" PointX="6.5" PointY="0.875" Height="1.211080729166667" />
+        <EntityTypeShape EntityType="hotelModel.Izba" Width="1.5" PointX="1" PointY="3.375" Height="1.2110807291666665" />
+        <EntityTypeShape EntityType="hotelModel.Platba" Width="1.5" PointX="4" PointY="3.375" Height="1.2110807291666665" />
+        <EntityTypeShape EntityType="hotelModel.Sluzby" Width="1.5" PointX="6.5" PointY="3.75" Height="1.2110807291666665" />
+        <AssociationConnector Association="hotelModel.ZakaznikRezervacia">
+          <ConnectorPoint PointX="3.375" PointY="1.797841796875" />
+          <ConnectorPoint PointX="4.25" PointY="1.797841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="hotelModel.ZakaznikPlatba">
+          <ConnectorPoint PointX="3.3749999999999973" PointY="3.239889322916667" />
+          <ConnectorPoint PointX="4" PointY="3.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="hotelModel.RezervaciaIzba">
+          <ConnectorPoint PointX="5.65625" PointY="2.59568359375" />
+          <ConnectorPoint PointX="5.65625" PointY="4.9057828776041665" />
+          <ConnectorPoint PointX="2.9583333333333335" PointY="4.9057828776041656" />
+          <ConnectorPoint PointX="2.7916666666666665" PointY="4.9057828776041665" />
+          <ConnectorPoint PointX="2.5" PointY="4.9057828776041665" />
+        </AssociationConnector>
+        <AssociationConnector Association="hotelModel.PobytIzba">
+          <ConnectorPoint PointX="6.843748" PointY="2.662985026041667" />
+          <ConnectorPoint PointX="6.843748" PointY="3.5" />
+          <ConnectorPoint PointX="6" PointY="3.5" />
+          <ConnectorPoint PointX="6" PointY="5.0283821614583335" />
+          <ConnectorPoint PointX="2.875" PointY="5.0283821614583335" />
+          <ConnectorPoint PointX="2.875" PointY="4.1091394388020834" />
+          <ConnectorPoint PointX="2.5" PointY="4.1091394388020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="hotelModel.PobytSluzby">
+          <ConnectorPoint PointX="7.25" PointY="2.47068359375" />
+          <ConnectorPoint PointX="7.25" PointY="3.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="hotelModel.ZakaznikPobyt">
+          <ConnectorPoint PointX="3.375" PointY="0.90625" />
+          <ConnectorPoint PointX="6.5" PointY="0.90625" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
