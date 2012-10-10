@@ -1,5 +1,5 @@
-// Generated with EntitiesToDTOs.v2.1 (entitiestodtos.codeplex.com).
-// Timestamp: 09/08/2012 - 03:03:51
+// Generated with EntitiesToDTOs.v2.2 (entitiestodtos.codeplex.com).
+// Timestamp: 23/10/2012 - 22:28:01
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -8,7 +8,7 @@ using System.Linq;
 using SimpleHotelIS.Models;
 using System.Data.Objects.DataClasses;
 
-namespace SimpleHotelIS
+namespace SimpleHotelIS.DTO
 {
 
     /// <summary>

@@ -25,6 +25,8 @@ namespace SimpleHotelIS.Models
     
         public virtual ICollection<Izba> Izbas { get; set; }
         public virtual ICollection<Sluzby> Sluzbies { get; set; }
+
+        public virtual int ZakaznikId { get; set; }
         public virtual Zakaznik Zakaznik { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using SimpleHotelIS.Models;
 using SimpleHotelIS.Repositories;
+using System.Data.Entity.Validation;
 
 namespace SimpleHotelIS.Controllers
 {
@@ -14,20 +15,45 @@ namespace SimpleHotelIS.Controllers
     public class AccountController : Controller
     {
 
-        private IRepository<Zakaznik> zaks;
+        private IModelStore ims;
 
-        public AccountController(IRepository<Zakaznik> zak)
+        public AccountController(IModelStore modelStore)
         {
-            this.zaks = zak;
+            this.ims = modelStore;
         }
 
         [AllowAnonymous]
         public JsonResult zakaznici()
         {
+
+            try
+            {
+                ims.Repository<Zakaznik>().add(new Zakaznik { meno = "Matus", priezvisko ="Kontra", kontakt = "P.B." });
+                ims.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+
+            return Json("Hello", JsonRequestBehavior.AllowGet);
+
+            /**
             return Json(new
             {
                 Result = (from obj in zaks.getQueryable() select new { Id = obj.Id, Name = obj.meno, Priezvisko = obj.priezvisko, Rezervations = obj.Rezervacias.Select(x=>x.Id) })
-            }, JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);**/
         }
 
         //

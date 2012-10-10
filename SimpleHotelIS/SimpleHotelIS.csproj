@@ -15,6 +15,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,13 +36,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.0.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData">
+      <HintPath>..\packages\Microsoft.Data.OData.5.0.1\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData.Contrib">
+      <HintPath>..\packages\Microsoft.Data.OData.Contrib.5.0.1.50813\lib\net40\Microsoft.Data.OData.Contrib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
@@ -54,25 +81,33 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.4.3.5\lib\net40\System.Data.SqlServerCe.Entity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Net.Http.Formatting.4.0.20126.16343\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Spatial">
+      <HintPath>..\packages\System.Spatial.5.0.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -84,16 +119,17 @@
       <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebApi.Core.4.0.20126.16343\lib\net40\System.Web.Http.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\System.Web.Http.Common.4.0.20126.16343\lib\net40\System.Web.Http.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.OData">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.0.1.0-alpha-120815\lib\net40\System.Web.Http.OData.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebApi.4.0.20126.16343\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -135,78 +171,100 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\HelpController.cs" />
+    <Compile Include="BussinesPipelines\Actions\AuthorizationAction.cs" />
+    <Compile Include="BussinesPipelines\Actions\BussinessValidationAction.cs" />
+    <Compile Include="BussinesPipelines\Actions\DTOtoEntity.cs" />
+    <Compile Include="BussinesPipelines\Actions\EntityActionIModelStoreProcessor.cs" />
+    <Compile Include="BussinesPipelines\Interfaces\IBussinessValidation.cs" />
+    <Compile Include="BussinesPipelines\Utils\DbContextValidationProvider.cs" />
+    <Compile Include="BussinesPipelines\Utils\Delegates.cs" />
+    <Compile Include="BussinesPipelines\Messages\EntityActionMessage.cs" />
+    <Compile Include="BussinesPipelines\Utils\EntityValidationResult.cs" />
+    <Compile Include="BussinesPipelines\Messages\ErrorMessage.cs" />
+    <Compile Include="BussinesPipelines\Actions\InputValidationAction.cs" />
+    <Compile Include="BussinesPipelines\Interfaces\IAction.cs" />
+    <Compile Include="BussinesPipelines\Interfaces\IInputValidationAction.cs" />
+    <Compile Include="BussinesPipelines\Utils\IValidationProvider.cs" />
+    <Compile Include="BussinesPipelines\Messages\ValidationErrorMessage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiHelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\hotelModel.Designer.cs">
+    <Compile Include="DTO\HotelModelDtosAssemblers.cs" />
+    <Compile Include="DTO\SluzbyDTO.cs" />
+    <Compile Include="DTO\PlatbaDTO.cs" />
+    <Compile Include="DTO\IzbaDTO.cs" />
+    <Compile Include="DTO\PobytDTO.cs" />
+    <Compile Include="DTO\RezervaciaDTO.cs" />
+    <Compile Include="DTO\ZakaznikDTO.cs" />
+    <Compile Include="Models\HotelEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>hotelModel.edmx</DependentUpon>
+      <DependentUpon>HotelEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HotelModelDtosAssemblers.cs" />
-    <Compile Include="Models\HotelModelDtos.cs" />
+    <Compile Include="Models\HotelEntities.Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelEntities.Mapping.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\hotelModelGenerator.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>hotelModelGenerator.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\hotelModelGenerator.Entities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\hotelModelGenerator.Mapping.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Izba.cs">
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Izba_Mapping.cs">
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Platba.cs">
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Platba_Mapping.cs">
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pobyt.cs">
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pobyt_Mapping.cs">
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rezervacia.cs">
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rezervacia_Mapping.cs">
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sluzby.cs">
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sluzby_Mapping.cs">
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Zakaznik.cs">
-      <DependentUpon>hotelModelGenerator.Entities.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Zakaznik_Mapping.cs">
-      <DependentUpon>hotelModelGenerator.Mapping.tt</DependentUpon>
+      <DependentUpon>HotelEntities.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\DbContextICommitableAdapter.cs" />
-    <Compile Include="Repositories\DbContextRepository.cs" />
-    <Compile Include="Repositories\ICommitableResource.cs" />
+    <Compile Include="Repositories\DbContextIModelStoreAdapter.cs" />
+    <Compile Include="Repositories\DbSetRepository.cs" />
+    <Compile Include="Repositories\HotelEntitesModelStore.cs" />
+    <Compile Include="Repositories\IDbSetToIRepositoryExtension.cs" />
+    <Compile Include="Repositories\IModelStore.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\IUnitOfWork.cs" />
-    <Compile Include="Repositories\NonNamedRequestScopedHotelEntitiesUnitOfWork.cs" />
-    <Compile Include="Repositories\RequestScopedUnitOfWork.cs" />
+    <Compile Include="Utils\ChangeSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -238,8 +296,6 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\hotelModel.edmx.sql" />
-    <Compile Include="Repositories\hotelEntitiesNamed.cs" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -289,35 +345,54 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\ApiHelp\Index.cshtml" />
+    <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceer40EN.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlcecompact40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceca40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\README_ENU.txt" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\msvcr90.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlcese40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceqp40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceme40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceer40EN.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlcecompact40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BussinesPipelines\Facades\" />
+    <Folder Include="Validations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\hotelModel.edmx">
+    <None Include="Models\HotelEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HotelEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\HotelEntities.Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HotelEntities.Entities.cs</LastGenOutput>
+    </None>
+    <None Include="Models\HotelEntities.Mapping.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HotelEntities.Mapping.cs</LastGenOutput>
+    </None>
+    <None Include="Models\HotelModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>hotelModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+      <LastGenOutput>HotelModel1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\hotelModelGenerator.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>hotelModelGenerator.Context.cs</LastGenOutput>
-    </None>
-    <None Include="Models\hotelModelGenerator.Entities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>hotelModelGenerator.Entities.cs</LastGenOutput>
-    </None>
-    <None Include="Models\hotelModelGenerator.Mapping.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>hotelModelGenerator.Mapping.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -349,4 +424,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

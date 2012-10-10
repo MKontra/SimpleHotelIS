@@ -14,35 +14,35 @@ namespace SimpleHotelIS.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    internal partial class hotelEntities : DbContext
+    internal partial class HotelEntities : DbContext
     {
-        static hotelEntities()
+        static HotelEntities()
     	{ 
-    		Database.SetInitializer<hotelEntities>(null);
+    		Database.SetInitializer<HotelEntities>(null);
     	}
     	
-    	public hotelEntities() : base("name=hotelEntities")
+    	public HotelEntities() : base("name=HotelEntities")
         {
         }
     	
-    	public hotelEntities(string nameOrConnectionString) : base(nameOrConnectionString)
+    	public HotelEntities(string nameOrConnectionString) : base(nameOrConnectionString)
     	{	
     	}
     
-    	public hotelEntities(string nameOrConnectionString, DbCompiledModel model) : base(nameOrConnectionString, model)
+    	public HotelEntities(string nameOrConnectionString, DbCompiledModel model) : base(nameOrConnectionString, model)
     	{
     	}
     
-    	public hotelEntities(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
+    	public HotelEntities(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
     	{
     	}
     
-    	public hotelEntities(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+    	public HotelEntities(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
     	{
     	}
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-    		modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
+    		//modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
     		modelBuilder.Configurations.Add(new Izba_Mapping());
     		modelBuilder.Configurations.Add(new Platba_Mapping());
     		modelBuilder.Configurations.Add(new Pobyt_Mapping());

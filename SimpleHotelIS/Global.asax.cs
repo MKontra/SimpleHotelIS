@@ -31,10 +31,17 @@ namespace SimpleHotelIS
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "Default",
+                name: "Hotel",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapHttpRoute(
+                name: "HotelApi",
+                routeTemplate: "api/{controller}",
+                defaults: new { controller = "Help" }
+            );
+
         }
 
         protected override void OnApplicationStarted()
@@ -51,9 +58,10 @@ namespace SimpleHotelIS
         {
             var kernel = new StandardKernel();
 
-            kernel.Bind(typeof(IRepository<>)).To(typeof(DbContextRepository<>)).InRequestScope().WithConstructorArgument("dbc", context => NonNamedRequestScopedHotelEntitiesUnitOfWork.Current().getStoredReference() );
+            kernel.Bind(typeof(IModelStore)).To<HotelEntitesModelStore>().InRequestScope();
 
             return kernel;
         }
+
     }
 }
