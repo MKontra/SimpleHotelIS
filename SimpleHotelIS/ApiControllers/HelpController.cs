@@ -12,8 +12,8 @@ namespace SimpleHotelIS.ApiControllers
         // GET api/<controller>
         public System.Net.Http.HttpResponseMessage Get()
         {
-            var response = Request.CreateResponse(HttpStatusCode.Redirect);
-            response.Headers.Location = new Uri("ApiHelp");
+            var response = new System.Net.Http.HttpResponseMessage(HttpStatusCode.Redirect);
+            response.Headers.Location = new Uri("ApiHelp", UriKind.Relative); 
             return response;
         }
     }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SimpleHotelIS.BussinesPipelines.Actions
+namespace SimpleHotelIS.BussinesPipelines.Messages
 {
-    public class AuthorizationAction
+    public class DtoMessage
     {
     }
 }

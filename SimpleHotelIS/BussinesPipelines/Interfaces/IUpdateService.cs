@@ -5,9 +5,10 @@ using System.Text;
 
 namespace SimpleHotelIS.BussinesPipelines.Interfaces
 {
-    public interface IAction
+    public interface IUpdateService<T, TDto>
+        where T : class, new()
+        where TDto : class, new()
     {
-        String Name { get; set; }
-        void Invoke(Object source, EventArgs arg);
+        void Invoke(object source, TDto dto);
     }
 }

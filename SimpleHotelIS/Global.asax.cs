@@ -11,6 +11,10 @@ using Ninject;
 using SimpleHotelIS.Repositories;
 using System.Data.Entity;
 using SimpleHotelIS.Models;
+using SimpleHotelIS.Authorization;
+using SimpleHotelIS.BussinesPipelines;
+using SimpleHotelIS.BussinesPipelines.Interfaces;
+using SimpleHotelIS.Utils;
 
 namespace SimpleHotelIS
 {
@@ -30,17 +34,20 @@ namespace SimpleHotelIS
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapHttpRoute(
+                name: "HotelApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { controller = "Help", id = System.Web.Http.RouteParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Hotel",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapHttpRoute(
-                name: "HotelApi",
-                routeTemplate: "api/{controller}",
-                defaults: new { controller = "Help" }
-            );
+
 
         }
 
@@ -58,7 +65,12 @@ namespace SimpleHotelIS
         {
             var kernel = new StandardKernel();
 
-            kernel.Bind(typeof(IModelStore)).To<HotelEntitesModelStore>().InRequestScope();
+            kernel.Bind<IModelStore>().To<HotelEntitesModelStore>().InRequestScope();
+            kernel.Bind<IValidationProvider>().To<DbContextValidationProvider>().WithConstructorArgument("dbc", ctx => ctx.Kernel.Get<IModelStore>().unwrap<DbContext>());
+            kernel.Bind<IAuthorizationProvider>().To<EmptyAuthorizationProvider>();
+            kernel.Bind<ICrudServiceProvider>().To<DefaultCrudServiceProvider>();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
 
             return kernel;
         }

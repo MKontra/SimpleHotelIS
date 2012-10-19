@@ -6,7 +6,7 @@ using SimpleHotelIS.BussinesPipelines.Messages;
 
 namespace SimpleHotelIS.BussinesPipelines.Interfaces
 {
-        interface IBussinessValidation
+    public interface IBussinessValidation
         {
 
             event EntityActionHandler OutEntity;
@@ -15,7 +15,7 @@ namespace SimpleHotelIS.BussinesPipelines.Interfaces
             void Invoke(Object source, EntityActionMessage eam);
         }
 
-        interface IBussinessValidation<T> where T : class, new()
+    public interface IBussinessValidation<T> where T : class, new()
         {
 
             event EntityActionHandler<T> OutEntity;
