@@ -1,0 +1,23 @@
+﻿<#@ Import Namespace="T4Toolbox" #>
+<#@ Import Namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#+
+// <copyright file="Delete.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class Delete : Template
+{
+	private System.Data.Metadata.Edm.EntityType entity;
+
+    public Delete(System.Data.Metadata.Edm.EntityType e)
+    {
+	    entity = e;
+    }         
+                             
+	public override string TransformText()
+	{
+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

@@ -28,10 +28,6 @@ namespace SimpleHotelIS.Models
     		this.Property(t => t.meno).HasColumnName("meno").IsRequired();
     		this.Property(t => t.priezvisko).HasColumnName("priezvisko").IsRequired();
     		this.Property(t => t.kontakt).HasColumnName("kontakt").IsRequired();
-            this.HasMany(t => t.Pobyts).
-                WithRequired(p => p.Zakaznik).
-                HasForeignKey(p => p.ZakaznikId).
-                WillCascadeOnDelete();
     	}
     }
 }

@@ -16,6 +16,13 @@ namespace SimpleHotelIS.DTO
     
     public partial class PlatbaDTO : IEntityConvertible<Platba, PlatbaDTO>
     {
+        public PlatbaDTO()
+        {
+    	}
+    
+        public PlatbaDTO(Platba entity)
+        {
+    	}
     
     	public  Platba ToEntity()
     	{

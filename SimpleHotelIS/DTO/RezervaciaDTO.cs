@@ -20,6 +20,10 @@ namespace SimpleHotelIS.DTO
         {
     	}
     
+        public RezervaciaDTO(Rezervacia entity)
+        {
+    	}
+    
     	public  Rezervacia ToEntity()
     	{
     		Rezervacia entity = new  Rezervacia();

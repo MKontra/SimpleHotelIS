@@ -4,35 +4,35 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="hotelModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-  <EntityContainer Name="hotelModelStoreContainer">
-    <EntitySet Name="Zakazniks" EntityType="hotelModel.Store.Zakazniks" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Rezervacias" EntityType="hotelModel.Store.Rezervacias" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Pobyts" EntityType="hotelModel.Store.Pobyts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Izbas" EntityType="hotelModel.Store.Izbas" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Platbas" EntityType="hotelModel.Store.Platbas" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Sluzbies" EntityType="hotelModel.Store.Sluzbies" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="ZakaznikRezervacia" Association="hotelModel.Store.ZakaznikRezervacia">
+    <Schema Namespace="HotelModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="HotelModelStoreContainer">
+    <EntitySet Name="Zakazniks" EntityType="HotelModel.Store.Zakazniks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rezervacias" EntityType="HotelModel.Store.Rezervacias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pobyts" EntityType="HotelModel.Store.Pobyts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Izbas" EntityType="HotelModel.Store.Izbas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Platbas" EntityType="HotelModel.Store.Platbas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sluzbies" EntityType="HotelModel.Store.Sluzbies" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ZakaznikRezervacia" Association="HotelModel.Store.ZakaznikRezervacia">
       <End Role="Zakaznik" EntitySet="Zakazniks" />
       <End Role="Rezervacia" EntitySet="Rezervacias" />
     </AssociationSet>
-    <AssociationSet Name="ZakaznikPlatba" Association="hotelModel.Store.ZakaznikPlatba">
+    <AssociationSet Name="ZakaznikPlatba" Association="HotelModel.Store.ZakaznikPlatba">
       <End Role="Zakaznik" EntitySet="Zakazniks" />
       <End Role="Platba" EntitySet="Platbas" />
     </AssociationSet>
-    <AssociationSet Name="RezervaciaIzba" Association="hotelModel.Store.RezervaciaIzba">
+    <AssociationSet Name="RezervaciaIzba" Association="HotelModel.Store.RezervaciaIzba">
       <End Role="Rezervacia" EntitySet="Rezervacias" />
       <End Role="Izba" EntitySet="Izbas" />
     </AssociationSet>
-    <AssociationSet Name="PobytIzba" Association="hotelModel.Store.PobytIzba">
+    <AssociationSet Name="PobytIzba" Association="HotelModel.Store.PobytIzba">
       <End Role="Pobyt" EntitySet="Pobyts" />
       <End Role="Izba" EntitySet="Izbas" />
     </AssociationSet>
-    <AssociationSet Name="PobytSluzby" Association="hotelModel.Store.PobytSluzby">
+    <AssociationSet Name="PobytSluzby" Association="HotelModel.Store.PobytSluzby">
       <End Role="Pobyt" EntitySet="Pobyts" />
       <End Role="Sluzby" EntitySet="Sluzbies" />
     </AssociationSet>
-    <AssociationSet Name="ZakaznikPobyt" Association="hotelModel.Store.ZakaznikPobyt">
+    <AssociationSet Name="ZakaznikPobyt" Association="HotelModel.Store.ZakaznikPobyt">
       <End Role="Zakaznik" EntitySet="Zakazniks" />
       <End Role="Pobyt" EntitySet="Pobyts" />
     </AssociationSet>
@@ -80,11 +80,12 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="longtext" Nullable="false" />
     <Property Name="Pobyt_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="ZakaznikRezervacia">
-    <End Role="Zakaznik" Type="hotelModel.Store.Zakazniks" Multiplicity="1" />
-    <End Role="Rezervacia" Type="hotelModel.Store.Rezervacias" Multiplicity="*" />
+    <End Role="Zakaznik" Type="HotelModel.Store.Zakazniks" Multiplicity="1" />
+    <End Role="Rezervacia" Type="HotelModel.Store.Rezervacias" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Zakaznik">
         <PropertyRef Name="Id" />
@@ -95,8 +96,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ZakaznikPlatba">
-    <End Role="Zakaznik" Type="hotelModel.Store.Zakazniks" Multiplicity="1" />
-    <End Role="Platba" Type="hotelModel.Store.Platbas" Multiplicity="*" />
+    <End Role="Zakaznik" Type="HotelModel.Store.Zakazniks" Multiplicity="1" />
+    <End Role="Platba" Type="HotelModel.Store.Platbas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Zakaznik">
         <PropertyRef Name="Id" />
@@ -107,8 +108,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="RezervaciaIzba">
-    <End Role="Rezervacia" Type="hotelModel.Store.Rezervacias" Multiplicity="1" />
-    <End Role="Izba" Type="hotelModel.Store.Izbas" Multiplicity="*" />
+    <End Role="Rezervacia" Type="HotelModel.Store.Rezervacias" Multiplicity="1" />
+    <End Role="Izba" Type="HotelModel.Store.Izbas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Rezervacia">
         <PropertyRef Name="Id" />
@@ -119,8 +120,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PobytIzba">
-    <End Role="Pobyt" Type="hotelModel.Store.Pobyts" Multiplicity="1" />
-    <End Role="Izba" Type="hotelModel.Store.Izbas" Multiplicity="*" />
+    <End Role="Pobyt" Type="HotelModel.Store.Pobyts" Multiplicity="1" />
+    <End Role="Izba" Type="HotelModel.Store.Izbas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pobyt">
         <PropertyRef Name="Id" />
@@ -131,8 +132,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PobytSluzby">
-    <End Role="Pobyt" Type="hotelModel.Store.Pobyts" Multiplicity="1" />
-    <End Role="Sluzby" Type="hotelModel.Store.Sluzbies" Multiplicity="*" />
+    <End Role="Pobyt" Type="HotelModel.Store.Pobyts" Multiplicity="1" />
+    <End Role="Sluzby" Type="HotelModel.Store.Sluzbies" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pobyt">
         <PropertyRef Name="Id" />
@@ -143,8 +144,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ZakaznikPobyt">
-    <End Role="Zakaznik" Type="hotelModel.Store.Zakazniks" Multiplicity="1" />
-    <End Role="Pobyt" Type="hotelModel.Store.Pobyts" Multiplicity="*" />
+    <End Role="Zakaznik" Type="HotelModel.Store.Zakazniks" Multiplicity="1" />
+    <End Role="Pobyt" Type="HotelModel.Store.Pobyts" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Zakaznik">
         <PropertyRef Name="Id" />
@@ -240,6 +241,7 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Pobyt" Relationship="HotelModel.PobytSluzby" FromRole="Sluzby" ToRole="Pobyt" />
+          <Property Type="String" Name="Description" Nullable="false" />
         </EntityType>
         <Association Name="ZakaznikRezervacia">
           <End Type="HotelModel.Zakaznik" Role="Zakaznik" Multiplicity="1" />
@@ -270,7 +272,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="hotelModelStoreContainer" CdmEntityContainer="HotelEntities">
+  <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="HotelEntities">
     <EntitySetMapping Name="Zakazniks">
       <EntityTypeMapping TypeName="IsTypeOf(HotelModel.Zakaznik)">
         <MappingFragment StoreEntitySet="Zakazniks">
@@ -313,6 +315,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(HotelModel.Sluzby)">
         <MappingFragment StoreEntitySet="Sluzbies">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -392,7 +395,7 @@
         <EntityTypeShape EntityType="HotelModel.Pobyt" Width="1.5" PointX="6.5" PointY="0.875" Height="1.211080729166667" />
         <EntityTypeShape EntityType="HotelModel.Izba" Width="1.5" PointX="1" PointY="3.375" Height="1.2110807291666665" />
         <EntityTypeShape EntityType="HotelModel.Platba" Width="1.5" PointX="4" PointY="3.375" Height="1.2110807291666665" />
-        <EntityTypeShape EntityType="HotelModel.Sluzby" Width="1.5" PointX="6.5" PointY="3.75" Height="1.2110807291666665" />
+        <EntityTypeShape EntityType="HotelModel.Sluzby" Width="1.5" PointX="6.5" PointY="3.75" Height="1.5956835937499996" />
         <AssociationConnector Association="HotelModel.ZakaznikRezervacia">
           <ConnectorPoint PointX="3.375" PointY="1.797841796875" />
           <ConnectorPoint PointX="4.25" PointY="1.797841796875" />
@@ -409,17 +412,17 @@
           <ConnectorPoint PointX="2.5" PointY="4.9057828776041665" />
         </AssociationConnector>
         <AssociationConnector Association="HotelModel.PobytIzba">
-          <ConnectorPoint PointX="6.843748" PointY="2.662985026041667" />
-          <ConnectorPoint PointX="6.843748" PointY="3.5" />
+          <ConnectorPoint PointX="6.960935" PointY="2.662985026041667" />
+          <ConnectorPoint PointX="6.960935" PointY="3.5" />
           <ConnectorPoint PointX="6" PointY="3.5" />
           <ConnectorPoint PointX="6" PointY="5.0283821614583335" />
           <ConnectorPoint PointX="2.875" PointY="5.0283821614583335" />
-          <ConnectorPoint PointX="2.875" PointY="4.1091394388020834" />
-          <ConnectorPoint PointX="2.5" PointY="4.1091394388020834" />
+          <ConnectorPoint PointX="2.875" PointY="4.1091394388020825" />
+          <ConnectorPoint PointX="2.5" PointY="4.1091394388020825" />
         </AssociationConnector>
         <AssociationConnector Association="HotelModel.PobytSluzby">
-          <ConnectorPoint PointX="7.25" PointY="2.47068359375" />
-          <ConnectorPoint PointX="7.25" PointY="3.75" />
+          <ConnectorPoint PointX="7.5429675" PointY="2.662985026041667" />
+          <ConnectorPoint PointX="7.5429675" PointY="3.75" />
         </AssociationConnector>
         <AssociationConnector Association="HotelModel.ZakaznikPobyt">
           <ConnectorPoint PointX="3.375" PointY="0.90625" />

@@ -1,0 +1,25 @@
+﻿<#@ Import Namespace="T4Toolbox" #>
+<#@ Import Namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#+
+// <copyright file="Create.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class Create : Template
+{
+	private System.Data.Metadata.Edm.EntityType entity;                
+                     
+	public Create( System.Data.Metadata.Edm.EntityType e)
+    {
+	    entity = e;
+    }
+                                      
+	public override string TransformText()
+	{
+#>
+
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

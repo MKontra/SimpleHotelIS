@@ -1,0 +1,120 @@
+<#@ template language="C#" hostspecific="True" debug="True" #>
+<#@ output extension=".cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ Import Namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ include file="EF.Utility.CS.ttinclude" #>
+<#@ Import Namespace="System.Collections.Generic" #>
+<#
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile = Host.ResolvePath(@"../Models/hotelModel.edmx");
+string entitiesNamespace = @"SimpleHotelIS.Models";
+string entitiesDtosNamespace = @"SimpleHotelIS.DTO";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+var DtoAssemblerTemplate = new DtoAssembler(ItemCollection.GetItems<EntityType>(), namespaceName, entitiesNamespace);
+DtoAssemblerTemplate.RenderToFile("DtoAssembler.cs");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+#>
+
+<#+
+// <copyright file="DtoAssembler.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class DtoAssembler : Template
+{
+
+	private System.Collections.Generic.ICollection<EntityType> entities;
+    private string namespaceName;
+    private string entitiesNamespace;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    public DtoAssembler(ICollection<EntityType> entities, string nspc, string entitiesNamespace)
+    {
+	    this.entities = entities;
+        namespaceName = nspc;
+        this.entitiesNamespace = entitiesNamespace;
+    }  
+                     
+	public override string TransformText()
+	{
+	    CodeGenerationTools code = new CodeGenerationTools(this);
+#>using <#= entitiesNamespace#>;
+using System;
+using System.Linq;
+
+namespace  <#=namespaceName #>
+{
+	public static class DtoAssembler
+	{
+        public static object toDto<T>(T p)
+        {
+            Type tType = typeof(T);
+<#+
+	 foreach (var entity in entities)
+	 {
+#>
+            if (tType == typeof(<#=code.Escape(entity)#>)) return toDto(p as <#=code.Escape(entity)#>);
+<#+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	 }
+#>
+            return null;
+        }
+<#+
+	 foreach (var entity in entities)
+	 {
+	    var nonNavigationalProperties = entity.Properties;
+		var propertiesWithDefaultValues = entity.Properties.Where(p => p.TypeUsage.EdmType is PrimitiveType && p.DeclaringType == entity && p.DefaultValue != null);
+		var collectionNavigationProperties = entity.NavigationProperties.Where(np => np.DeclaringType == entity && np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many);
+		var complexProperties = entity.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == entity);
+#>
+		public static <#=code.Escape(entity)#>DTO toDto(<#=code.Escape(entity)#> entity)
+		{
+			<#=code.Escape(entity)#>DTO newdto = new <#=code.Escape(entity)#>DTO();
+
+			//Properties
+<#+
+		 foreach (var prop in nonNavigationalProperties)
+		 {
+#>
+			newdto.<#= prop.Name #> = entity.<#= prop.Name #>;
+<#+
+		 }
+#>
+			//Nav. Properties
+<#+
+	     foreach (var navProp in entity.NavigationProperties.Where(np => np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.One || np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.ZeroOrOne))
+		 {
+#>
+			newdto.<#= navProp.Name #> = entity.<#= navProp.Name #>.Id;
+<#+
+		 }
+#>
+<#+
+		 foreach (var navProp in entity.NavigationProperties.Where( np => np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many))
+		 {
+#>
+			newdto.<#= navProp.Name #> = entity.<#= navProp.Name #>.Select( fref => fref.Id).ToList();
+<#+
+		 }
+#>
+			return newdto;
+		}
+<#+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	 }
+#>
+
+
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

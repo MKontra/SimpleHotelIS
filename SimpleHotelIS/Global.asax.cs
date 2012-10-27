@@ -6,24 +6,30 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Ninject.Web.Common;
-using Ninject;
+using MvcContrib.ControllerFactories;
 using SimpleHotelIS.Repositories;
 using System.Data.Entity;
 using SimpleHotelIS.Models;
 using SimpleHotelIS.Authorization;
-using SimpleHotelIS.BussinesPipelines;
-using SimpleHotelIS.BussinesPipelines.Interfaces;
+using SimpleHotelIS.BusinessPipelines;
+using SimpleHotelIS.BusinessPipelines.Interfaces;
 using SimpleHotelIS.Utils;
+using SimpleHotelIS.Validations;
+using SimpleHotelIS.BusinessPipelines.Facades;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
+using System.Web.Http.Dispatcher;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel;
+using Castle.Facilities.TypedFactory;
 
 namespace SimpleHotelIS
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : NinjectHttpApplication
+    public class MvcApplication : System.Web.HttpApplication
     {
-
 
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -51,29 +57,78 @@ namespace SimpleHotelIS
 
         }
 
-        protected override void OnApplicationStarted()
-        {
+
+        protected void Application_Start() {
+
             AreaRegistration.RegisterAllAreas();
 
+            BootStrapIoCContainer(new WindsorContainer());
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();
         }
 
+        private void BootStrapIoCContainer(WindsorContainer container)
+        {
+            var controllerFactory = new CastleWindsorControllerFactory(container.Kernel);     // Create a new instance
+            ControllerBuilder.Current.SetControllerFactory(controllerFactory);          // Use my factory instead of default
+            GlobalConfiguration.Configuration.Services.Replace(
+                typeof(IHttpControllerActivator),
+                new CastleWindsorHttpControllerActivator(container));
+
+            container.AddFacility<TypedFactoryFacility>();
+            RegisterServices(container);
+
+            container.Install(
+                FromAssembly.This()
+            ); 
+        }
+
+        private void RegisterServices(WindsorContainer container)
+        {
+            container.Register( Component.For<IModelStore>().ImplementedBy<HotelEntitesModelStore>().LifestylePerWebRequest() );
+            container.Register(
+                Component.For<IInputValidationProvider>().ImplementedBy<DbContextInputValidationProvider>().DynamicParameters(
+                    (kernel, context) => 
+                    {
+                        IModelStore ims = kernel.Resolve<IModelStore>();
+                        DbContext dbc = ims.unwrap<DbContext>();
+                        context["dbc"] = dbc;
+                        return (r) => { r.ReleaseComponent(ims); };
+                    }).LifestyleTransient().Named("inputValidator"),
+                Component.For<IBusinessValidationProvider>().ImplementedBy<ModelStoreBusinessValidationProvider>().LifestyleTransient().Named("businessValidator") ,
+                Component.For<IAuthorizationProvider>().ImplementedBy<EmptyAuthorizationProvider>().LifestyleTransient()
+                );
+            container.Register(
+                Component.For(typeof(ICreateService<,>)).ImplementedBy(typeof(DefaultEntityCreate<,>)).LifestyleTransient(),
+                Component.For(typeof(IGetByIdService<,>)).ImplementedBy(typeof(DefaultGetById<,>)).LifestyleTransient()
+                );
+            container.Register(
+                Component.For(typeof(ICrudServiceProvider<,>)).AsFactory()
+                );
+        }
+
+        /**
         protected override Ninject.IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
 
             kernel.Bind<IModelStore>().To<HotelEntitesModelStore>().InRequestScope();
-            kernel.Bind<IValidationProvider>().To<DbContextValidationProvider>().WithConstructorArgument("dbc", ctx => ctx.Kernel.Get<IModelStore>().unwrap<DbContext>());
+            kernel.Bind<IInputValidationProvider>().To<DbContextInputValidationProvider>().When( request=>request.Target.Name.StartsWith("input")).WithConstructorArgument("dbc", ctx => ctx.Kernel.Get<IModelStore>().unwrap<DbContext>());
+            kernel.Bind<IInputValidationProvider>().To<ModelStoreBusinessValidationProvider>().When( request => request.Target.Name.StartsWith("business"));
             kernel.Bind<IAuthorizationProvider>().To<EmptyAuthorizationProvider>();
-            kernel.Bind<ICrudServiceProvider>().To<DefaultCrudServiceProvider>();
 
-            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
+            kernel.Bind(typeof(ICreateService<,>)).To(typeof(DefaultEntityCreate<,>));
+            kernel.Bind(typeof(IGetByIdService<,>)).To(typeof(DefaultGetById<,>));
+
+            kernel.Bind(typeof(ICrudServiceProvider<,>)).ToFactory();
+
+            GlobalConfiguration.Configuration.DependencyResolver;
 
             return kernel;
         }
+         **/
 
     }
 }

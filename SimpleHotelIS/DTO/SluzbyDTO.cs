@@ -16,16 +16,25 @@ namespace SimpleHotelIS.DTO
     
     public partial class SluzbyDTO : IEntityConvertible<Sluzby, SluzbyDTO>
     {
+        public SluzbyDTO()
+        {
+    	}
+    
+        public SluzbyDTO(Sluzby entity)
+        {
+    	}
     
     	public  Sluzby ToEntity()
     	{
     		Sluzby entity = new  Sluzby();
     		entity.Id = this.Id;
+    		entity.Description = this.Description;
     		return entity;
     	}
     
     
         public int Id { get; set; }
+        public string Description { get; set; }
     	//dong
     		//susu
         public virtual int Pobyt { get; set; }

@@ -16,6 +16,7 @@ namespace SimpleHotelIS.Models
     public partial class Sluzby
     {
         public int Id { get; set; }
+        public string Description { get; set; }
     
         public virtual Pobyt Pobyt { get; set; }
     }

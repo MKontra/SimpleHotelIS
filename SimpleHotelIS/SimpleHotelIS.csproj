@@ -26,6 +26,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,18 +39,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
+    <Reference Include="Castle.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.FactorySupport">
+      <HintPath>..\packages\Castle.FactorySupportFacility.3.1.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.1.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm">
@@ -59,24 +75,24 @@
     <Reference Include="Microsoft.Data.OData.Contrib">
       <HintPath>..\packages\Microsoft.Data.OData.Contrib.5.0.1.50813\lib\net40\Microsoft.Data.OData.Contrib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.VSHost.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc2Futures.2.0.50217.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib">
+      <HintPath>..\packages\MvcContrib.2.0.95.0\lib\MvcContrib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Web.Common">
-      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Web.Mvc">
-      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -158,37 +174,101 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="T4Toolbox.10.0, Version=10.10.13.1, Culture=neutral, PublicKeyToken=7e313accbcce84dc, processorArchitecture=x86" />
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiControllers\IzbaController.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\IzbaController.cs">
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApiControllers\PlatbaController.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\PlatbaController.cs">
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApiControllers\PobytController.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\PobytController.cs">
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApiControllers\RezervaciaController.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\RezervaciaController.cs">
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApiControllers\SluzbyController.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\SluzbyController.cs">
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApiControllers\ZakaznikController.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\ZakaznikController.cs">
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Authorization\EmptyAuthorizationProvider.cs" />
-    <Compile Include="BussinesPipelines\DefaultCrudServiceProvider.cs" />
-    <Compile Include="BussinesPipelines\ICrudServiceProvider.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IAsQueryableService.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\ICreateService.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IDeleteService.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IGetByIdService.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IUpdateService.cs" />
+    <Compile Include="Authorization\Requests\CreateFromDtoRequest.cs" />
+    <Compile Include="Authorization\Requests\ReadByIdRequest.cs" />
+    <Compile Include="BusinessPipelines\Actions\BusinessValidationAction.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\AuthorizationTask.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\BusinessValidationTask.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\CreateTask.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\Hurrr.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\InputValidationTask.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\ReadTask.cs" />
+    <Compile Include="BusinessPipelines\Facades\DefaultGetById.cs" />
+    <Compile Include="BusinessPipelines\Facades\DefaultGetByIdServiceTask.cs" />
+    <Compile Include="BusinessPipelines\ICrudServiceProvider.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IBusinessValidationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IActionWithErrorAndOutEvent.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IActionWithErrorEvent.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IActionWithOutputEvent.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IAsQueryableService.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\ICreateService.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IDataAccessAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IDeleteService.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IGetByIdService.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IUpdateService.cs" />
+    <Compile Include="BusinessPipelines\Actions\TaskBased\DtoToEntityConversionTask.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IActionTask.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IAsQueryableServiceTask.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IAuthorizationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IBusinessValidationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\ICreateServiceTask.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IDataCreationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IDataGetAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IDeleteServiceTask.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IDtoToEntityAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IGetByIdServiceTask.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IInputValidationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\TaskBased\IUpdateServiceTask.cs" />
+    <Compile Include="BusinessPipelines\ITaskBasedCrudServiceProvider.cs" />
+    <Compile Include="BusinessPipelines\Messages\AuthorizationResultMessage.cs" />
+    <Compile Include="BusinessPipelines\Messages\DataMessage.cs" />
+    <Compile Include="BusinessPipelines\Messages\ResourceRequestMessage.cs" />
+    <Compile Include="Controllers\CRUDControllers\CrudMvcControllerGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CRUDControllers\IzbaController.cs">
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CRUDControllers\PlatbaController.cs">
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CRUDControllers\PobytController.cs">
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CRUDControllers\RezervaciaController.cs">
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CRUDControllers\SluzbyController.cs">
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CRUDControllers\ZakaznikController.cs">
+      <DependentUpon>CrudMvcControllerGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\DtoAssembler.cs">
+      <DependentUpon>DtoAssembler.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\DtoAssembler1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtoAssembler.tt</DependentUpon>
+    </Compile>
     <Compile Include="DTO\DtoGenerator.cs">
       <DependentUpon>DtoGenerator.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -217,42 +297,34 @@
     <Compile Include="Authorization\CrudAutorizationActionDesc.cs" />
     <Compile Include="Authorization\IAuthorizationProvider.cs" />
     <Compile Include="Authorization\Requests\ResourceRequest.cs" />
-    <Compile Include="BussinesPipelines\Actions\CrudAuthorizationAction.cs" />
-    <Compile Include="BussinesPipelines\Actions\BussinessValidationAction.cs" />
-    <Compile Include="BussinesPipelines\Actions\CRUD\CreateAction.cs" />
-    <Compile Include="BussinesPipelines\Actions\CRUD\DeleteAction.cs" />
-    <Compile Include="BussinesPipelines\Actions\CRUD\ReadAction.cs" />
-    <Compile Include="BussinesPipelines\Actions\CRUD\UpdateAction.cs" />
-    <Compile Include="BussinesPipelines\Actions\DTOtoEntity.cs" />
-    <Compile Include="BussinesPipelines\Actions\EntityActionIModelStoreProcessor.cs" />
-    <Compile Include="BussinesPipelines\Facades\DefaultEntityCreate.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IAuthorizationAction.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IBussinessValidation.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IDataAccessAction.cs" />
-    <Compile Include="BussinesPipelines\Messages\AuthentizationErrorMessage.cs" />
-    <Compile Include="BussinesPipelines\Messages\DtoMessage.cs" />
-    <Compile Include="BussinesPipelines\Messages\EntityMessage.cs" />
-    <Compile Include="BussinesPipelines\Messages\StatusMessage.cs" />
-    <Compile Include="BussinesPipelines\Utils\DbContextValidationProvider.cs" />
-    <Compile Include="BussinesPipelines\Utils\Delegates.cs" />
-    <Compile Include="BussinesPipelines\Messages\EntityActionMessage.cs" />
-    <Compile Include="BussinesPipelines\Utils\EntityValidationResult.cs" />
-    <Compile Include="BussinesPipelines\Messages\ErrorMessage.cs" />
-    <Compile Include="BussinesPipelines\Actions\InputValidationAction.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IAction.cs" />
-    <Compile Include="BussinesPipelines\Interfaces\IInputValidationAction.cs" />
-    <Compile Include="BussinesPipelines\Utils\IValidationProvider.cs" />
-    <Compile Include="BussinesPipelines\Messages\ValidationErrorMessage.cs" />
+    <Compile Include="BusinessPipelines\Actions\AuthorizationAction.cs" />
+    <Compile Include="BusinessPipelines\Actions\CRUD\CreateAction.cs" />
+    <Compile Include="BusinessPipelines\Actions\CRUD\DeleteAction.cs" />
+    <Compile Include="BusinessPipelines\Actions\CRUD\ReadAction.cs" />
+    <Compile Include="BusinessPipelines\Actions\CRUD\UpdateAction.cs" />
+    <Compile Include="BusinessPipelines\Actions\DTOtoEntity.cs" />
+    <Compile Include="BusinessPipelines\Facades\DefaultEntityCreate.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IAuthorizationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IDataCreationAction.cs" />
+    <Compile Include="BusinessPipelines\Messages\DtoMessage.cs" />
+    <Compile Include="BusinessPipelines\Messages\EntityMessage.cs" />
+    <Compile Include="BusinessPipelines\Messages\StatusMessage.cs" />
+    <Compile Include="BusinessPipelines\Utils\Delegates.cs" />
+    <Compile Include="BusinessPipelines\Messages\EntityActionMessage.cs" />
+    <Compile Include="BusinessPipelines\Messages\ErrorMessage.cs" />
+    <Compile Include="BusinessPipelines\Actions\InputValidationAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IAction.cs" />
+    <Compile Include="BusinessPipelines\Interfaces\EventBased\IInputValidationAction.cs" />
+    <Compile Include="BusinessPipelines\Messages\ValidationErrorMessage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiHelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ApiControllers\CrudApiControllerGenerator.cs">
+    <Compile Include="ApiControllers\CRUDApiControllers\CrudApiControllerGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CrudApiControllerGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\IEntityConvertible.cs" />
-    <Compile Include="DTO\EntityConvertible.cs" />
     <Compile Include="Models\HotelEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -320,8 +392,17 @@
     <Compile Include="Repositories\IDbSetToIRepositoryExtension.cs" />
     <Compile Include="Repositories\IModelStore.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Utils\ChangeSet.cs" />
-    <Compile Include="Utils\NinjectDependencyResolver.cs" />
+    <Compile Include="Utils\CastleWindsorControllerFactory.cs" />
+    <Compile Include="Utils\CastleWindsorControllerInstaller.cs" />
+    <Compile Include="Utils\CastleWindsorDependencyResolver.cs" />
+    <Compile Include="Utils\CastleWindsorHttpControllerActivator.cs" />
+    <None Include="Utils\NinjectDependencyResolver.cs" />
+    <Compile Include="Utils\CastleWindsorHttpControllerInstaller.cs" />
+    <Compile Include="Validations\IBusinessValidationProvider.cs" />
+    <Compile Include="Validations\DbContextValidationProvider.cs" />
+    <Compile Include="Validations\EntityValidationResult.cs" />
+    <Compile Include="Validations\IValidationProvider.cs" />
+    <Compile Include="Validations\ModelStoreBusinessValidationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -353,6 +434,7 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Models\HotelModel.edmx.sql" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -368,6 +450,11 @@
     <Content Include="Scripts\knockout-2.0.0.debug.js" />
     <Content Include="Scripts\knockout-2.0.0.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Views\CRUDControllers\ViewGenerator.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewGenerator.tt</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -403,14 +490,64 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\ApiHelp\Index.cshtml" />
+    <None Include="Controllers\CRUDControllers\CrudMvcControllerGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CrudMvcControllerGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="DTO\DtoAssembler.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DtoAssembler1.cs</LastGenOutput>
+    </None>
     <None Include="DTO\DtoGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DtoGenerator.cs</LastGenOutput>
     </None>
-    <None Include="ApiControllers\CrudApiControllerGenerator.tt">
+    <None Include="ApiControllers\CRUDApiControllers\CrudApiControllerGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CrudApiControllerGenerator.cs</LastGenOutput>
     </None>
+    <None Include="Views\CRUDControllers\Create.tt" />
+    <None Include="Views\CRUDControllers\Delete.tt" />
+    <None Include="Views\CRUDControllers\Detail.tt" />
+    <Content Include="Views\CRUDControllers\Izba\Create.cshtml" />
+    <None Include="Views\CRUDControllers\List.tt" />
+    <Content Include="Views\CRUDControllers\Platba\Create.cshtml" />
+    <Content Include="Views\CRUDControllers\Pobyt\Create.cshtml" />
+    <Content Include="Views\CRUDControllers\Rezervacia\Create.cshtml" />
+    <Content Include="Views\CRUDControllers\Sluzby\Create.cshtml" />
+    <None Include="Views\CRUDControllers\Update.tt" />
+    <None Include="Views\CRUDControllers\ViewGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewGenerator.txt</LastGenOutput>
+    </None>
+    <Content Include="Views\CRUDControllers\Izba\Delete.cshtml" />
+    <Content Include="Views\CRUDControllers\Platba\Delete.cshtml" />
+    <Content Include="Views\CRUDControllers\Pobyt\Delete.cshtml" />
+    <Content Include="Views\CRUDControllers\Rezervacia\Delete.cshtml" />
+    <Content Include="Views\CRUDControllers\Sluzby\Delete.cshtml" />
+    <Content Include="Views\CRUDControllers\Izba\Detail.cshtml" />
+    <Content Include="Views\CRUDControllers\Izba\List.cshtml" />
+    <Content Include="Views\CRUDControllers\Izba\Update.cshtml" />
+    <Content Include="Views\CRUDControllers\Platba\Detail.cshtml" />
+    <Content Include="Views\CRUDControllers\Platba\List.cshtml" />
+    <Content Include="Views\CRUDControllers\Platba\Update.cshtml" />
+    <Content Include="Views\CRUDControllers\Pobyt\Detail.cshtml" />
+    <Content Include="Views\CRUDControllers\Pobyt\List.cshtml" />
+    <Content Include="Views\CRUDControllers\Pobyt\Update.cshtml" />
+    <Content Include="Views\CRUDControllers\Rezervacia\Detail.cshtml" />
+    <Content Include="Views\CRUDControllers\Rezervacia\List.cshtml" />
+    <Content Include="Views\CRUDControllers\Rezervacia\Update.cshtml" />
+    <Content Include="Views\CRUDControllers\Sluzby\Detail.cshtml" />
+    <Content Include="Views\CRUDControllers\Sluzby\List.cshtml" />
+    <Content Include="Views\CRUDControllers\Sluzby\Update.cshtml" />
+    <None Include="Views\CRUDControllers\ViewGenerator.tt.log">
+      <DependentUpon>ViewGenerator.tt</DependentUpon>
+    </None>
+    <Content Include="Views\CRUDControllers\Zakaznik\Create.cshtml" />
+    <Content Include="Views\CRUDControllers\Zakaznik\Delete.cshtml" />
+    <Content Include="Views\CRUDControllers\Zakaznik\Detail.cshtml" />
+    <Content Include="Views\CRUDControllers\Zakaznik\List.cshtml" />
+    <Content Include="Views\CRUDControllers\Zakaznik\Update.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -431,7 +568,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Validations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

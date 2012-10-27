@@ -1,0 +1,22 @@
+﻿<#@ Import Namespace="T4Toolbox" #>
+<#@ Import Namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#+
+// <copyright file="Update.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class Update : Template
+{
+	private System.Data.Metadata.Edm.EntityType entity;
+
+    public Update(System.Data.Metadata.Edm.EntityType e)
+    {
+	    entity = e;
+    }                        
+	public override string TransformText()
+	{
+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

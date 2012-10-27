@@ -20,6 +20,10 @@ namespace SimpleHotelIS.DTO
         {
     	}
     
+        public ZakaznikDTO(Zakaznik entity)
+        {
+    	}
+    
     	public  Zakaznik ToEntity()
     	{
     		Zakaznik entity = new  Zakaznik();

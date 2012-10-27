@@ -16,6 +16,13 @@ namespace SimpleHotelIS.DTO
     
     public partial class IzbaDTO : IEntityConvertible<Izba, IzbaDTO>
     {
+        public IzbaDTO()
+        {
+    	}
+    
+        public IzbaDTO(Izba entity)
+        {
+    	}
     
     	public  Izba ToEntity()
     	{

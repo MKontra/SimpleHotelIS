@@ -20,6 +20,10 @@ namespace SimpleHotelIS.DTO
         {
     	}
     
+        public PobytDTO(Pobyt entity)
+        {
+    	}
+    
     	public  Pobyt ToEntity()
     	{
     		Pobyt entity = new  Pobyt();

@@ -16,6 +16,8 @@ string namespaceName = code.VsNamespaceSuggestion();
 EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
 WriteHeader(fileManager);
 
+ICollection<EntityType> lol = ItemCollection.GetItems<EntityType>();
+
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {
     fileManager.StartNewFile(entity.Name + "DTO.cs");
@@ -35,8 +37,6 @@ using <#= entitiesNamespace#>;
     var collectionNavigationProperties = entity.NavigationProperties.Where(np => np.DeclaringType == entity && np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many);
     var complexProperties = entity.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == entity);
 	
-    if (propertiesWithDefaultValues.Any() || collectionNavigationProperties.Any() || complexProperties.Any())
-    {
 #>
     public <#=code.Escape(entity)#>DTO()
     {
@@ -56,9 +56,25 @@ using <#= entitiesNamespace#>;
         }
 #>
 	}
+
+    public <#=code.Escape(entity)#>DTO(<#=code.Escape(entity)#> entity)
+    {
+<#
+        foreach (var edmProperty in propertiesWithDefaultValues)
+        {
+#>
+        this.<#=code.Escape(edmProperty)#> = entity.<#=code.Escape(edmProperty)#>;
+<#
+        }
+
+        foreach (var complexProperty in complexProperties)
+        {
+#>
+        this.<#=code.Escape(complexProperty)#> = entity.<#=code.Escape(complexProperty)#>;
 <#
         }
 #>
+	}
 
 	public  <#=code.Escape(entity)#> ToEntity()
 	{

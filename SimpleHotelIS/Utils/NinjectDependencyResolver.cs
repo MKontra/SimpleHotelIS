@@ -1,4 +1,5 @@
-﻿using System;
+﻿/**
+using System;
 using System.Web.Http.Dependencies;
 using Ninject;
 using Ninject.Syntax;
@@ -59,4 +60,4 @@ namespace SimpleHotelIS.Utils
             return new NinjectDependencyScope(kernel.BeginBlock());
         }
     }
-}
+}**/

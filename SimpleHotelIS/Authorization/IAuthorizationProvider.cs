@@ -7,6 +7,6 @@ namespace SimpleHotelIS.Authorization
 {
     public interface IAuthorizationProvider
     {
-        AuthorizationResult authorize(System.Security.Principal.IPrincipal invoker, Requests.ResourceRequest resourceRequest);
+        AuthorizationResult authorize(Requests.ResourceRequest resourceRequest);
     }
 }

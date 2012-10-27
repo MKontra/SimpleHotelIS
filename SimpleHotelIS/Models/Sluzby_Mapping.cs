@@ -25,6 +25,7 @@ namespace SimpleHotelIS.Models
     		this.HasKey(t => t.Id);		
     		this.ToTable("Sluzbies");
     		this.Property(t => t.Id).HasColumnName("Id");
+    		this.Property(t => t.Description).HasColumnName("Description").IsRequired();
     	}
     }
 }
