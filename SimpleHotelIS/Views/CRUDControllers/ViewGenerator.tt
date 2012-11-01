@@ -28,11 +28,11 @@ fileManager.Process();
 
 foreach ( var entity in ItemCollection.GetItems<EntityType>() )
 {
-	var createTempl = new Create( entity );
-    var deleteTempl = new Delete( entity );
-    var detailTempl = new Detail( entity );
-    var   listTempl = new List( entity );
-    var updateTempl = new Update( entity );
+	var createTempl = new Create( entity, entitiesNamespace);
+    var deleteTempl = new Delete(entity, entitiesNamespace);
+    var detailTempl = new Detail(entity, entitiesNamespace);
+    var listTempl = new List(entity, entitiesNamespace);
+    var updateTempl = new Update(entity, entitiesNamespace);
 
     createTempl.RenderToFile(entity.Name + "\\Create.cshtml");
     deleteTempl.RenderToFile(entity.Name + "\\Delete.cshtml");  

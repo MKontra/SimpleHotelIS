@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased
 {
-    interface IDeleteServiceTask<T, TDto> : IActionTask<object>
+    public interface IDeleteServiceTask<T, TDto> : IActionTask<object>
         where T : class, new()
         where TDto : class, new()
     {

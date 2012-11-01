@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased
 {
-    interface IDataCreationAction<T> : IFuncTask<T, T>
+    public interface IDataCreationAction<T> : IFuncTask<T, T>
         where T: class, new()
     {
     }

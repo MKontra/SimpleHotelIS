@@ -9,7 +9,7 @@ public class Detail : Template
 {
 	private System.Data.Metadata.Edm.EntityType entity;
 
-    public Detail(System.Data.Metadata.Edm.EntityType e)
+    public Detail(System.Data.Metadata.Edm.EntityType e, string entityNS)
     {
 	    entity = e;
     }                       

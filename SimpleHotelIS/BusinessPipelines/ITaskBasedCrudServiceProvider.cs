@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased;
+using SimpleHotelIS.DTO;
 
 namespace SimpleHotelIS.BusinessPipelines
 {
-    interface ITaskBasedCrudServiceProvider<T, TDto>
+    public interface ITaskBasedCrudServiceProvider<T, TDto>
         where T: class, new()
-        where TDto: class, new()
+        where TDto : class, IEntityConvertible<T, TDto>, new()
     {
         IGetByIdServiceTask<T, TDto> CreateIGetByIdServiceTask();
         IAsQueryableServiceTask<T, TDto> CreateIAsQueryableServiceTask();

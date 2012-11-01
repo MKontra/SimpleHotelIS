@@ -17,6 +17,8 @@ string namespaceName = code.VsNamespaceSuggestion();
 EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
 WriteHeader(fileManager);
 
+
+
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {
     fileManager.StartNewFile(entity.Name + "Controller.cs");
@@ -33,7 +35,7 @@ using <#= entitiesNamespace#>;
 using <#= entitiesDtosNamespace#>;
 using SimpleHotelIS.BusinessPipelines;
 
-<#=Accessibility.ForType(entity)#> <#=code.SpaceAfter(code.AbstractOption(entity))#>partial class <#=code.Escape(entity)#>Controller <#=code.StringBefore(" : ", code.Escape(entity.BaseType))#> : Controller
+public <#=code.SpaceAfter(code.AbstractOption(entity))#>partial class <#=code.Escape(entity)#>Controller <#=code.StringBefore(" : ", code.Escape(entity.BaseType))#> : Controller
 {
 <#
     
@@ -43,11 +45,11 @@ using SimpleHotelIS.BusinessPipelines;
     var complexProperties = entity.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == entity);
 #>
 
-    	private ICrudServiceProvider<<#=code.Escape(entity)#>, <#=code.Escape(entity)#>DTO> icsp;
+    	private ITaskBasedCrudServiceProvider<<#=code.Escape(entity)#>, <#=code.Escape(entity)#>DTO> icsp;
     
     	public <#=code.Escape(entity)#>Controller
     		(
-    			ICrudServiceProvider<<#=code.Escape(entity)#>, <#=code.Escape(entity)#>DTO> icsp
+    			ITaskBasedCrudServiceProvider<<#=code.Escape(entity)#>, <#=code.Escape(entity)#>DTO> icsp
     		)
     	{
     		this.icsp = icsp;
@@ -62,22 +64,22 @@ using SimpleHotelIS.BusinessPipelines;
         [HttpGet]
         public ActionResult GetById(int id)
         {
-            var result = icsp.CreateIGetByIdService().Invoke(this, id);
-            return View("Detail", result);
+            var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
+            return View( "/Views/CRUDControllers/<#=code.Escape(entity)#>/" +"Detail" +".cshtml", result);
         }
             
         [HttpGet]
         public ActionResult GetQueryable()
         {
             var querystring = this.Request.QueryString;
-            var result = icsp.CreateIAsQueryableService().Invoke(this);
-            return View("List", result);
+            var result = icsp.CreateIAsQueryableServiceTask().GetTask().Result;
+            return View( "/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "List"+ ".cshtml", result);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            return View("Create");
+            return View( "/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Create"+ ".cshtml");
         }
 
         [HttpPost]
@@ -85,21 +87,21 @@ using SimpleHotelIS.BusinessPipelines;
         {
 			try
 			{
-				icsp.CreateICreateService().Invoke(this, dto);
-				return View("Detail");
+				var newent = icsp.CreateICreateServiceTask().GetTask(dto).Result;
+				return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Detail"+ ".cshtml", newent);
 			} catch ( Exception e )
 			{
 				ViewBag.Original = dto;
 				ViewBag.Reasons = e;
-				return View("Create");
+				return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Create"+ ".cshtml");
 			}
         }
 
         [HttpGet]
         public ActionResult Update(int id)
         {
-			var result = icsp.CreateIGetByIdService().Invoke(this, id);
-            return View("Update", result);
+			var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
+            return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Update"+ ".cshtml" , result);
         }
 
         [HttpPost]
@@ -107,36 +109,36 @@ using SimpleHotelIS.BusinessPipelines;
         {
 			try
 			{
-				icsp.CreateIUpdateService().Invoke(this, dto);
-				return View("Detail");
+                var updent = icsp.CreateIUpdateServiceTask().GetTask(dto).Result;
+				return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Detail"+ ".cshtml", updent);
 			} catch ( Exception e )
 			{
 				ViewBag.Original = dto;
 				ViewBag.Reasons = e;
-				return View("Update");
+				return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Update"+ ".cshtml");
 			}
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-			var result = icsp.CreateIGetByIdService().Invoke(this, id);
+			var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
 			ViewBag.ShowDeleteConfirmation = true;
-            return View("Detail", id);
+            return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Detail"+ ".cshtml", result);
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult ConfirmDelete(int id)
         {
 			try
 			{
-				icsp.CreateIDeleteService().Invoke(this, id);
-				return View("List");
+				icsp.CreateIDeleteServiceTask().GetTask(id).RunSynchronously();
+				return View("/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "List"+ ".cshtml");
 			} catch ( Exception e )
 			{
-				var result = icsp.CreateIGetByIdService().Invoke(this, id);
+				var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
 				ViewBag.Reasons = e;
-				return View("Detail", result);
+				return View( "/Views/CRUDControllers/<#=code.Escape(entity)#>/"+ "Detail"+ ".cshtml", result);
 			}
         }
     

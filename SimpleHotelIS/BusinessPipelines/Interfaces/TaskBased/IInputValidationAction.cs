@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased
 {
-    interface IInputValidationAction : IActionTask<object>
+    public interface IInputValidationAction : IActionTask<object>
     {
     }
 
-    interface IInputValidationAction<T> : IActionTask<T>
+    public interface IInputValidationAction<T> : IActionTask<T>
         where T: class, new()
     {
     }

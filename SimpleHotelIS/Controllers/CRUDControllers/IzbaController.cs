@@ -23,11 +23,11 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
     public partial class IzbaController  : Controller
     {
     
-        	private ICrudServiceProvider<Izba, IzbaDTO> icsp;
+        	private ITaskBasedCrudServiceProvider<Izba, IzbaDTO> icsp;
         
         	public IzbaController
         		(
-        			ICrudServiceProvider<Izba, IzbaDTO> icsp
+        			ITaskBasedCrudServiceProvider<Izba, IzbaDTO> icsp
         		)
         	{
         		this.icsp = icsp;
@@ -42,22 +42,22 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
             [HttpGet]
             public ActionResult GetById(int id)
             {
-                var result = icsp.CreateIGetByIdService().Invoke(this, id);
-                return View("Detail", result);
+                var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
+                return View( "/Views/CRUDControllers/Izba/" +"Detail" +".cshtml", result);
             }
                 
             [HttpGet]
             public ActionResult GetQueryable()
             {
                 var querystring = this.Request.QueryString;
-                var result = icsp.CreateIAsQueryableService().Invoke(this);
-                return View("List", result);
+                var result = icsp.CreateIAsQueryableServiceTask().GetTask().Result;
+                return View( "/Views/CRUDControllers/Izba/"+ "List"+ ".cshtml", result);
             }
     
             [HttpGet]
             public ActionResult Create()
             {
-                return View("Create");
+                return View( "/Views/CRUDControllers/Izba/"+ "Create"+ ".cshtml");
             }
     
             [HttpPost]
@@ -65,21 +65,21 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
             {
     			try
     			{
-    				icsp.CreateICreateService().Invoke(this, dto);
-    				return View("Detail");
+    				var newent = icsp.CreateICreateServiceTask().GetTask(dto).Result;
+    				return View("/Views/CRUDControllers/Izba/"+ "Detail"+ ".cshtml", newent);
     			} catch ( Exception e )
     			{
     				ViewBag.Original = dto;
     				ViewBag.Reasons = e;
-    				return View("Create");
+    				return View("/Views/CRUDControllers/Izba/"+ "Create"+ ".cshtml");
     			}
             }
     
             [HttpGet]
             public ActionResult Update(int id)
             {
-    			var result = icsp.CreateIGetByIdService().Invoke(this, id);
-                return View("Update", result);
+    			var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
+                return View("/Views/CRUDControllers/Izba/"+ "Update"+ ".cshtml" , result);
             }
     
             [HttpPost]
@@ -87,36 +87,36 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
             {
     			try
     			{
-    				icsp.CreateIUpdateService().Invoke(this, dto);
-    				return View("Detail");
+                    var updent = icsp.CreateIUpdateServiceTask().GetTask(dto).Result;
+    				return View("/Views/CRUDControllers/Izba/"+ "Detail"+ ".cshtml", updent);
     			} catch ( Exception e )
     			{
     				ViewBag.Original = dto;
     				ViewBag.Reasons = e;
-    				return View("Update");
+    				return View("/Views/CRUDControllers/Izba/"+ "Update"+ ".cshtml");
     			}
             }
     
             [HttpGet]
             public ActionResult Delete(int id)
             {
-    			var result = icsp.CreateIGetByIdService().Invoke(this, id);
+    			var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
     			ViewBag.ShowDeleteConfirmation = true;
-                return View("Detail", id);
+                return View("/Views/CRUDControllers/Izba/"+ "Detail"+ ".cshtml", result);
             }
     
             [HttpPost]
-            public ActionResult Delete(int id)
+            public ActionResult ConfirmDelete(int id)
             {
     			try
     			{
-    				icsp.CreateIDeleteService().Invoke(this, id);
-    				return View("List");
+    				icsp.CreateIDeleteServiceTask().GetTask(id).RunSynchronously();
+    				return View("/Views/CRUDControllers/Izba/"+ "List"+ ".cshtml");
     			} catch ( Exception e )
     			{
-    				var result = icsp.CreateIGetByIdService().Invoke(this, id);
+    				var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
     				ViewBag.Reasons = e;
-    				return View("Detail", result);
+    				return View( "/Views/CRUDControllers/Izba/"+ "Detail"+ ".cshtml", result);
     			}
             }
         

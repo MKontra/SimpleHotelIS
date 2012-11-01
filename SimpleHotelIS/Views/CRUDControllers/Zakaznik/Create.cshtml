@@ -1,0 +1,29 @@
+@model SimpleHotelIS.Models.Zakaznik
+
+@{Html.BeginForm( "Create", "Zakaznik", FormMethod.Post, new { @class = "form-horizontal" });}
+<div class="control-group">
+@Html.LabelFor(p=>p.Id, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.Id) @Html.ValidationMessageFor(p=>p.Id)
+</div>
+</div>
+<div class="control-group">
+@Html.LabelFor(p=>p.meno, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.meno) @Html.ValidationMessageFor(p=>p.meno)
+</div>
+</div>
+<div class="control-group">
+@Html.LabelFor(p=>p.priezvisko, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.priezvisko) @Html.ValidationMessageFor(p=>p.priezvisko)
+</div>
+</div>
+<div class="control-group">
+@Html.LabelFor(p=>p.kontakt, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.kontakt) @Html.ValidationMessageFor(p=>p.kontakt)
+</div>
+</div>
+<input type="submit" value="Create Zakaznik" class="btn"/>
+@{Html.EndForm();}

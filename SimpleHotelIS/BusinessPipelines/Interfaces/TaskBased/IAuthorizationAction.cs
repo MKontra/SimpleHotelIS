@@ -7,11 +7,11 @@ using SimpleHotelIS.Authorization.Requests;
 
 namespace SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased
 {
-    interface IAuthorizationAction : IFuncTask<AuthorizationResult, ResourceRequest>
+    public interface IAuthorizationAction : IFuncTask<AuthorizationResult, ResourceRequest>
     {
     }
 
-    interface IAuthorizationAction<T> : IFuncTask<AuthorizationResult, ResourceRequest>
+    public interface IAuthorizationAction<T> : IFuncTask<AuthorizationResult, ResourceRequest>
         where T: class, new()
     {
     }

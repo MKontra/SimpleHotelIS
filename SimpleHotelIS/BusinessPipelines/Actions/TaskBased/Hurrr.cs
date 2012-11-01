@@ -6,8 +6,4 @@ using System.Threading.Tasks;
 
 namespace SimpleHotelIS.BusinessPipelines.Actions.TaskBased
 {
-    public class Hurrr : Task<int>
-    {
-        
-    }
 }

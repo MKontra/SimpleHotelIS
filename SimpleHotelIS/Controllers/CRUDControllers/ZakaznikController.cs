@@ -23,11 +23,11 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
     public partial class ZakaznikController  : Controller
     {
     
-        	private ICrudServiceProvider<Zakaznik, ZakaznikDTO> icsp;
+        	private ITaskBasedCrudServiceProvider<Zakaznik, ZakaznikDTO> icsp;
         
         	public ZakaznikController
         		(
-        			ICrudServiceProvider<Zakaznik, ZakaznikDTO> icsp
+        			ITaskBasedCrudServiceProvider<Zakaznik, ZakaznikDTO> icsp
         		)
         	{
         		this.icsp = icsp;
@@ -42,22 +42,23 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
             [HttpGet]
             public ActionResult GetById(int id)
             {
-                var result = icsp.CreateIGetByIdService().Invoke(this, id);
-                return View("Detail", result);
+                var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
+                return View( "/Views/CRUDControllers/Zakaznik/" +"Detail" +".cshtml", result);
             }
                 
             [HttpGet]
             public ActionResult GetQueryable()
             {
                 var querystring = this.Request.QueryString;
-                var result = icsp.CreateIAsQueryableService().Invoke(this);
-                return View("List", result);
+                var tsk = icsp.CreateIAsQueryableServiceTask().GetTask();
+                tsk.RunSynchronously();
+                return View( "/Views/CRUDControllers/Zakaznik/"+ "List"+ ".cshtml", tsk.Result);
             }
     
             [HttpGet]
             public ActionResult Create()
             {
-                return View("Create");
+                return View( "/Views/CRUDControllers/Zakaznik/"+ "Create"+ ".cshtml");
             }
     
             [HttpPost]
@@ -65,21 +66,21 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
             {
     			try
     			{
-    				icsp.CreateICreateService().Invoke(this, dto);
-    				return View("Detail");
+    				var newent = icsp.CreateICreateServiceTask().GetTask(dto).Result;
+    				return View("/Views/CRUDControllers/Zakaznik/"+ "Detail"+ ".cshtml", newent);
     			} catch ( Exception e )
     			{
     				ViewBag.Original = dto;
     				ViewBag.Reasons = e;
-    				return View("Create");
+    				return View("/Views/CRUDControllers/Zakaznik/"+ "Create"+ ".cshtml");
     			}
             }
     
             [HttpGet]
             public ActionResult Update(int id)
             {
-    			var result = icsp.CreateIGetByIdService().Invoke(this, id);
-                return View("Update", result);
+    			var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
+                return View("/Views/CRUDControllers/Zakaznik/"+ "Update"+ ".cshtml" , result);
             }
     
             [HttpPost]
@@ -87,36 +88,36 @@ namespace SimpleHotelIS.Controllers.CRUDControllers
             {
     			try
     			{
-    				icsp.CreateIUpdateService().Invoke(this, dto);
-    				return View("Detail");
+                    var updent = icsp.CreateIUpdateServiceTask().GetTask(dto).Result;
+    				return View("/Views/CRUDControllers/Zakaznik/"+ "Detail"+ ".cshtml", updent);
     			} catch ( Exception e )
     			{
     				ViewBag.Original = dto;
     				ViewBag.Reasons = e;
-    				return View("Update");
+    				return View("/Views/CRUDControllers/Zakaznik/"+ "Update"+ ".cshtml");
     			}
             }
     
             [HttpGet]
             public ActionResult Delete(int id)
             {
-    			var result = icsp.CreateIGetByIdService().Invoke(this, id);
+    			var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
     			ViewBag.ShowDeleteConfirmation = true;
-                return View("Detail", id);
+                return View("/Views/CRUDControllers/Zakaznik/"+ "Detail"+ ".cshtml", result);
             }
     
             [HttpPost]
-            public ActionResult Delete(int id)
+            public ActionResult ConfirmDelete(int id)
             {
     			try
     			{
-    				icsp.CreateIDeleteService().Invoke(this, id);
-    				return View("List");
+    				icsp.CreateIDeleteServiceTask().GetTask(id).RunSynchronously();
+    				return View("/Views/CRUDControllers/Zakaznik/"+ "List"+ ".cshtml");
     			} catch ( Exception e )
     			{
-    				var result = icsp.CreateIGetByIdService().Invoke(this, id);
+    				var result = icsp.CreateIGetByIdServiceTask().GetTask(id).Result;
     				ViewBag.Reasons = e;
-    				return View("Detail", result);
+    				return View( "/Views/CRUDControllers/Zakaznik/"+ "Detail"+ ".cshtml", result);
     			}
             }
         

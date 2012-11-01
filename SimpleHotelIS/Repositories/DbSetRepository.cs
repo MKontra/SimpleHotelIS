@@ -22,7 +22,7 @@ namespace SimpleHotelIS.Repositories
 
         public IQueryable<T> getQueryable()
         {
-            return dbSet;
+            return dbSet.AsQueryable<T>();
         }
 
         public T getById(object pKey)

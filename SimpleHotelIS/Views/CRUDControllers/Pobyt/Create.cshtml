@@ -1,0 +1,11 @@
+@model SimpleHotelIS.Models.Pobyt
+
+@{Html.BeginForm( "Create", "Pobyt", FormMethod.Post, new { @class = "form-horizontal" });}
+<div class="control-group">
+@Html.LabelFor(p=>p.Id, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.Id) @Html.ValidationMessageFor(p=>p.Id)
+</div>
+</div>
+<input type="submit" value="Create Pobyt" class="btn"/>
+@{Html.EndForm();}

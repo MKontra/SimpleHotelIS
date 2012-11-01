@@ -7,17 +7,38 @@
 
 public class Create : Template
 {
-	private System.Data.Metadata.Edm.EntityType entity;                
+	private System.Data.Metadata.Edm.EntityType entity;
+    private CodeGenerationTools code;
+    private string entityNS;
                      
-	public Create( System.Data.Metadata.Edm.EntityType e)
+	public Create( System.Data.Metadata.Edm.EntityType e, string entityNS)
     {
 	    entity = e;
+        code = new CodeGenerationTools(this);
+        this.entityNS = entityNS;
     }
                                       
 	public override string TransformText()
 	{
 #>
+@model <#= entityNS #>.<#=code.Escape(entity)#>
 
+@{Html.BeginForm( "Create", "<#=code.Escape(entity)#>", FormMethod.Post, new { @class = "form-horizontal" });}
+<#+
+        foreach (var edmProperty in entity.Properties)
+        {
+#>
+<div class="control-group">
+@Html.LabelFor(p=>p.<#= edmProperty.Name #>, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.<#= edmProperty.Name #>) @Html.ValidationMessageFor(p=>p.<#= edmProperty.Name #>)
+</div>
+</div>
+<#+
+        }
+#>
+<input type="submit" value="Create <#=code.Escape(entity)#>" class="btn"/>
+@{Html.EndForm();}
 <#+
         return this.GenerationEnvironment.ToString();
 	}

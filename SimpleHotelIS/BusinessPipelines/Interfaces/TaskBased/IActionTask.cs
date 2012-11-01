@@ -11,6 +11,11 @@ namespace SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased
         Task GetTask(TArg1 arg1);
     }
 
+    public interface IFuncTask<TResult>
+    {
+        Task<TResult> GetTask();
+    }
+
     public interface IFuncTask<TResult, TArg1>
     {
         Task<TResult> GetTask(TArg1 arg1);

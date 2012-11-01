@@ -1,0 +1,17 @@
+@model SimpleHotelIS.Models.Sluzby
+
+@{Html.BeginForm( "Create", "Sluzby", FormMethod.Post, new { @class = "form-horizontal" });}
+<div class="control-group">
+@Html.LabelFor(p=>p.Id, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.Id) @Html.ValidationMessageFor(p=>p.Id)
+</div>
+</div>
+<div class="control-group">
+@Html.LabelFor(p=>p.Description, new { @class = "control-label" }) 
+<div class="controls">
+@Html.EditorFor(p=>p.Description) @Html.ValidationMessageFor(p=>p.Description)
+</div>
+</div>
+<input type="submit" value="Create Sluzby" class="btn"/>
+@{Html.EndForm();}

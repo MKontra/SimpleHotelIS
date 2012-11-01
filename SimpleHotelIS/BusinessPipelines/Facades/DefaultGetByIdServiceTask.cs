@@ -8,12 +8,13 @@ using SimpleHotelIS.Repositories;
 using SimpleHotelIS.Authorization;
 using System.Threading.Tasks;
 using SimpleHotelIS.Authorization.Requests;
+using SimpleHotelIS.DTO;
 
 namespace SimpleHotelIS.BusinessPipelines.Facades
 {
     public class DefaultGetByIdServiceTask<T, TDto> : IGetByIdServiceTask<T, TDto>
         where T: class, new()
-        where TDto: class, new()
+        where TDto : class, IEntityConvertible<T, TDto>, new()
     {
 
         IAuthorizationAction authorizationTask;
@@ -27,7 +28,24 @@ namespace SimpleHotelIS.BusinessPipelines.Facades
 
         public System.Threading.Tasks.Task<T> GetTask(object arg1)
         {
-            return authorizationTask.GetTask( new ReadByIdRequest{ Id = arg1}).ContinueWith<T>(result => dataAccessTask.GetTask(arg1).Result);
+            return authorizationTask.GetTask(new ReadByIdRequest { Id = arg1 }).
+                ContinueWith<Task<T>>(result =>
+                    {
+                        if (!result.Result.failed())
+                            return dataAccessTask.GetTask(arg1);
+                        else
+                            throw new Exception("Authorization failed");
+                    }).Unwrap(); 
+            /** 
+            return new Task<T>(
+                () =>
+                    {
+                        var authTask = authorizationTask.GetTask(new ReadByIdRequest { Id = arg1 });
+                        var daTask = dataAccessTask.GetTask(authTask.Result);
+                        return daTask.Result;
+                    }
+                );
+             **/
         }
     }
 }

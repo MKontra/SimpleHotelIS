@@ -8,14 +8,26 @@
 public class List : Template
 {
 	private System.Data.Metadata.Edm.EntityType entity;
+    private CodeGenerationTools code;
+    private string entityNS;
 
-    public List(System.Data.Metadata.Edm.EntityType e)
+    public List(System.Data.Metadata.Edm.EntityType e, string entityNS)
     {
 	    entity = e;
+        code = new CodeGenerationTools(this);
+        this.entityNS = entityNS;
     }                        
 	public override string TransformText()
 	{
+#>
+@model System.Collections.Generic.IEnumerable<<#= entityNS #>.<#=code.Escape(entity)#>>
 
+@foreach (var one in Model)
+{
+    @one.Id @one.meno <br />
+}
+
+<#+
         return this.GenerationEnvironment.ToString();
 	}
 }

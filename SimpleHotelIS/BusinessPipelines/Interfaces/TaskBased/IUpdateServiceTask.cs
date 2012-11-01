@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased
 {
-    interface IUpdateServiceTask<T, TDto> : IFuncTask<T, TDto>
+    public interface IUpdateServiceTask<T, TDto> : IFuncTask<T, TDto>
         where T : class, new()
         where TDto : class, new()
     {

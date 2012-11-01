@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using MvcContrib.ControllerFactories;
 using SimpleHotelIS.Repositories;
 using System.Data.Entity;
-using SimpleHotelIS.Models;
 using SimpleHotelIS.Authorization;
 using SimpleHotelIS.BusinessPipelines;
 using SimpleHotelIS.BusinessPipelines.Interfaces;
@@ -20,8 +14,8 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using System.Web.Http.Dispatcher;
 using Castle.MicroKernel.Registration;
-using Castle.MicroKernel;
 using Castle.Facilities.TypedFactory;
+using SimpleHotelIS.BusinessPipelines.Interfaces.TaskBased;
 
 namespace SimpleHotelIS
 {
@@ -66,7 +60,10 @@ namespace SimpleHotelIS
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            BundleTable.Bundles.RegisterTemplateBundles();
+            BundleTable.Bundles.EnableDefaultBundles();
+            //BundleTable.Bundles.RegisterTemplateBundles();
+            //var appset = new DictionaryAdapterFactory().GetAdapter<Zakaznik>(ConfigurationManager.AppSettings);
+
         }
 
         private void BootStrapIoCContainer(WindsorContainer container)
@@ -107,6 +104,15 @@ namespace SimpleHotelIS
             container.Register(
                 Component.For(typeof(ICrudServiceProvider<,>)).AsFactory()
                 );
+
+            container.Register(
+                Component.For(typeof(IGetByIdServiceTask<,>)).ImplementedBy(typeof(DefaultGetByIdServiceTask<,>)).LifestyleTransient(),
+                Component.For(typeof(IAsQueryableServiceTask<,>)).ImplementedBy(typeof(DefaultAsQueryableServiceTask<,>)).LifestyleTransient()
+                );
+            
+            container.Register(
+                Component.For(typeof(ITaskBasedCrudServiceProvider<,>)).AsFactory()
+    );
         }
 
         /**

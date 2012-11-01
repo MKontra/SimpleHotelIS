@@ -27,7 +27,7 @@ namespace SimpleHotelIS.BusinessPipelines.Actions
 
         public void Invoke(object source, ResourceRequestMessage rrm)
         {
-            AuthorizationResult ar = provider.authorize(rrm.Request); ;
+            AuthorizationResult ar = provider.authorize(rrm.Request);
             if (ar.failed())
                 OutData(this, new AuthorizationResultMessage { OriginalRequest = rrm.Request, Result = "Access Denied" });
             else

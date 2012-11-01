@@ -9,7 +9,7 @@ public class Update : Template
 {
 	private System.Data.Metadata.Edm.EntityType entity;
 
-    public Update(System.Data.Metadata.Edm.EntityType e)
+    public Update(System.Data.Metadata.Edm.EntityType e, string entityNS)
     {
 	    entity = e;
     }                        

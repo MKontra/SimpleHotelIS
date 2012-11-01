@@ -9,7 +9,7 @@ public class Delete : Template
 {
 	private System.Data.Metadata.Edm.EntityType entity;
 
-    public Delete(System.Data.Metadata.Edm.EntityType e)
+    public Delete(System.Data.Metadata.Edm.EntityType e, string entityNS)
     {
 	    entity = e;
     }         
